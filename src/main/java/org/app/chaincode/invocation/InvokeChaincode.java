@@ -88,18 +88,24 @@ public class InvokeChaincode {
 			 * CreateRule
 			 */
 			String ruleId = "RULE01";
-	        String rule = "{ \"ruleId\":\"" + ruleId + "\"," + " \"ruleName\":\"testrule" + ruleId + "\"," + " \"ruleDetail\":\" This is a test rule.\"," + " \"ruleDate\":\"20180508\"," + " \"dataType\":\"rule\"" + "}";
-			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"RULE:"+rule.toString());
+	        String rule = "{ \"ruleId\":\"" + ruleId + "\"," + " \"ruleName\":\"testrule" + ruleId + "\"," + " \"ruleDetail\":\" This is a test rule.\"," + " \"ruleDate\":20180508," + " \"dataType\":\"rule\"" + "}";
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"rule:"+rule.toString());
 
 	        Rule ruleBean = (Rule)JacksonUtil.readValue(rule, Rule.class);
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"ruleBean:"+ruleBean.toString());
+
 			Data ruleData = new Data();
 			ruleData.setDataType("rule");
 			ruleData.setContent(JacksonUtil.toJSON(ruleBean));
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"ruleData:"+ruleData.toString());
+			
 			Message msgBean = new Message();
 			msgBean.setChannel("mychannel");
 			msgBean.setTranCode("AddRule");
 			msgBean.setTranDate(sdf.format(new Date()));
 			msgBean.setData(new Data[] {ruleData});
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"msgBean:"+msgBean.toString());
+			
 			String argumentJson = JacksonUtil.toJSON(msgBean);
 			String[] arguments = new String[] {argumentJson};
 			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());

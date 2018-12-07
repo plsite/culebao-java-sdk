@@ -80,7 +80,7 @@ In this code pattern, we create one channel `mychannel` which is joined by all f
 
    ```
    cd ../../network_resources
-   java -cp blockchain-client.jar org.app.network.CreateChannel
+   java -cp blockchain-client.jar main.java.org.app.network.CreateChannel
    ```
 
 Output:
@@ -104,37 +104,37 @@ Output:
 This code pattern uses a sample chaincode `fabcar` to demo the usage of Hyperledger Fabric SDK Java APIs. To deploy and instantiate the chaincode, execute the following command.
 
    ```
-   java -cp blockchain-client.jar org.app.network.DeployInstantiateChaincode
+   java -cp blockchain-client.jar main.java.org.app.network.DeployInstantiateChaincode
    ```
    
    Output:
    
-   ```Apr 23, 2018 10:25:22 AM org.app.client.FabricClient deployChainCode
-      INFO: Deploying chaincode fabcar using Fabric client Org1MSP admin
-      Apr 23, 2018 10:25:22 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code deployment SUCCESS
-      Apr 23, 2018 10:25:22 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code deployment SUCCESS
-      Apr 23, 2018 10:25:22 AM org.app.client.FabricClient deployChainCode
-      INFO: Deploying chaincode fabcar using Fabric client Org2MSP admin
-      Apr 23, 2018 10:25:22 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code deployment SUCCESS
-      Apr 23, 2018 10:25:22 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code deployment SUCCESS
-      Apr 23, 2018 10:25:22 AM org.app.client.ChannelClient instantiateChainCode
-      INFO: Instantiate proposal request fabcar on channel mychannel with Fabric client Org2MSP admin
-      Apr 23, 2018 10:25:22 AM org.app.client.ChannelClient instantiateChainCode
-      INFO: Instantiating Chaincode ID fabcar on channel mychannel
-      Apr 23, 2018 10:25:25 AM org.app.client.ChannelClient instantiateChainCode
-      INFO: Chaincode fabcar on channel mychannel instantiation java.util.concurrent.CompletableFuture@723ca036[Not completed]
-      Apr 23, 2018 10:25:25 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code instantiation SUCCESS
-      Apr 23, 2018 10:25:25 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code instantiation SUCCESS
-      Apr 23, 2018 10:25:25 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code instantiation SUCCESS
-      Apr 23, 2018 10:25:25 AM org.app.network.DeployInstantiateChaincode main
-      INFO: fabcar- Chain code instantiation SUCCESS
+   ```INFO: Deploying chaincode PSB_Custody using Fabric client Org1MSP admin
+Dec 07, 2018 9:17:08 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code deployment SUCCESS
+Dec 07, 2018 9:17:08 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code deployment SUCCESS
+Dec 07, 2018 9:17:08 AM main.java.org.app.client.FabricClient deployChainCode
+INFO: Deploying chaincode PSB_Custody using Fabric client Org2MSP admin
+Dec 07, 2018 9:17:08 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code deployment SUCCESS
+Dec 07, 2018 9:17:08 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code deployment SUCCESS
+Dec 07, 2018 9:17:08 AM main.java.org.app.client.ChannelClient instantiateChainCode
+INFO: Instantiate proposal request PSB_Custody on channel mychannel with Fabric client Org2MSP admin
+Dec 07, 2018 9:17:08 AM main.java.org.app.client.ChannelClient instantiateChainCode
+INFO: Instantiating Chaincode ID PSB_Custody on channel mychannel
+Dec 07, 2018 9:17:10 AM main.java.org.app.client.ChannelClient instantiateChainCode
+INFO: Chaincode PSB_Custody on channel mychannel instantiation java.util.concurrent.CompletableFuture@48bb62[Not completed]
+Dec 07, 2018 9:17:10 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code instantiation SUCCESS
+Dec 07, 2018 9:17:10 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code instantiation SUCCESS
+Dec 07, 2018 9:17:10 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code instantiation SUCCESS
+Dec 07, 2018 9:17:10 AM main.java.org.app.network.DeployInstantiateChaincode main
+INFO: PSB_Custody- Chain code instantiation SUCCESS
+
    ```
    
    > **Note:** The chaincode fabcar.go was taken from the fabric samples available at - https://github.com/hyperledger/fabric-samples/tree/release-1.1/chaincode/fabcar/go.
@@ -144,7 +144,7 @@ This code pattern uses a sample chaincode `fabcar` to demo the usage of Hyperled
 A new user can be registered and enrolled to an MSP. Execute the below command to register a new user and enroll to Org1MSP.
 
    ```
-   java -cp blockchain-client.jar org.app.user.RegisterEnrollUser
+   java -cp blockchain-client.jar main.java.org.app.user.RegisterEnrollUser
    ```
    
    Output:
@@ -167,24 +167,43 @@ A new user can be registered and enrolled to an MSP. Execute the below command t
 Blockchain network has been setup completely and is ready to use. Now we can test the network by performing invoke and query on the network. The `fabcar` chaincode allows us to create a new asset which is a car. For test purpose, invoke operation is performed to create a new asset in the network and query operation is performed to list the asset of the network. Perform the following steps to check the same.
 
    ```
-   java -cp blockchain-client.jar org.app.chaincode.invocation.InvokeChaincode
+   java -cp blockchain-client.jar main.java.org.app.chaincode.invocation.InvokeChaincode
    ```
 
    Output:
    
-   ```Apr 20, 2018 5:13:03 PM org.app.client.CAClient enrollAdminUser
-     INFO: CA -http://localhost:7054 Enrolled Admin.
-     Apr 20, 2018 5:13:04 PM org.app.client.ChannelClient sendTransactionProposal
-     INFO: Sending transaction proposal on channel mychannel
-     Apr 20, 2018 5:13:04 PM org.app.client.ChannelClient sendTransactionProposal
-     INFO: Transaction proposal on channel mychannel OK SUCCESS with transaction       
-     id:a298b9e27bdb0b6ca18b19f9c78a5371fb4d9b8dd199927baf37379537ca0d0f
-     Apr 20, 2018 5:13:04 PM org.app.client.ChannelClient sendTransactionProposal
-     INFO: 
-     Apr 20, 2018 5:13:04 PM org.app.client.ChannelClient sendTransactionProposal
-     INFO: java.util.concurrent.CompletableFuture@22f31dec[Not completed]
-     Apr 20, 2018 5:13:04 PM org.app.chaincode.invocation.InvokeChaincode main
-     INFO: Invoked createCar on fabcar. Status - SUCCESS
+   ```Dec 07, 2018 9:55:19 AM main.java.org.app.util.Util deleteDirectory
+INFO: Deleting - admin.ser
+Dec 07, 2018 9:55:19 AM main.java.org.app.util.Util deleteDirectory
+INFO: Deleting - org1
+Dec 07, 2018 9:55:19 AM main.java.org.app.util.Util deleteDirectory
+INFO: Deleting - users
+log4j:WARN No appenders could be found for logger (org.hyperledger.fabric.sdk.helper.Config).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Dec 07, 2018 9:55:20 AM main.java.org.app.client.CAClient enrollAdminUser
+INFO: CA -http://localhost:7054 Enrolled Admin.
+Dec 07, 2018 9:55:20 AM main.java.org.app.chaincode.invocation.InvokeChaincode main
+INFO: rule:{ "ruleId":"RULE01", "ruleName":"testruleRULE01", "ruleDetail":" This is a test rule.", "ruleDate":20180508, "dataType":"rule"}
+Dec 07, 2018 9:55:20 AM main.java.org.app.chaincode.invocation.InvokeChaincode main
+INFO: ruleBean:main.java.org.app.culebao.entity.Rule@59d2400d
+Dec 07, 2018 9:55:20 AM main.java.org.app.chaincode.invocation.InvokeChaincode main
+INFO: ruleData:main.java.org.app.entity.Data@542e560f
+Dec 07, 2018 9:55:20 AM main.java.org.app.chaincode.invocation.InvokeChaincode main
+INFO: msgBean:main.java.org.app.entity.Message@1d730606
+Dec 07, 2018 9:55:20 AM main.java.org.app.chaincode.invocation.InvokeChaincode main
+INFO: arguments:[Ljava.lang.String;@5911e990
+Dec 07, 2018 9:55:20 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: Sending transaction proposal on channel mychannel
+Dec 07, 2018 9:55:20 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: Transaction proposal on channel mychannel OK SUCCESS with transaction id:6d3e8e77c12eaaf10767240a8e7007f8d91568897336f2ba8d12ca0bfee0122d
+Dec 07, 2018 9:55:20 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: {"tranCode":"AddRule","tranDate":"","retCode":"00","data":null,"error":null}
+Dec 07, 2018 9:55:20 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: java.util.concurrent.CompletableFuture@2eced48b[Not completed]
+Dec 07, 2018 9:55:20 AM main.java.org.app.chaincode.invocation.InvokeChaincode main
+INFO: Invoked createCar on PSB_Custody. Status - SUCCESS
+
   ```   
 
    ```
@@ -193,19 +212,31 @@ Blockchain network has been setup completely and is ready to use. Now we can tes
    
    Output:
    
-   <pre>
-    Apr 20, 2018 5:13:28 PM org.app.client.CAClient enrollAdminUser
-    INFO: CA -http://localhost:7054 Enrolled Admin.
-    Apr 20, 2018 5:13:29 PM org.app.chaincode.invocation.QueryChaincode main
-    INFO: <b>Querying for all cars ...</b>
-    Apr 20, 2018 5:13:29 PM org.app.client.ChannelClient queryByChainCode
-    INFO: Querying queryAllCars on channel mychannel
-    Apr 20, 2018 5:13:29 PM org.app.chaincode.invocation.QueryChaincode main
-    INFO: <b>[{"Key":"CAR1", "Record":{"make":"Chevy","model":"Volt","colour":"Red","owner":"Nick"}}]</b>
-    Apr 20, 2018 5:13:39 PM org.app.chaincode.invocation.QueryChaincode main
-    INFO: <b>Querying for a car - CAR1</b>
-    Apr 20, 2018 5:13:39 PM org.app.client.ChannelClient queryByChainCode
-    INFO: Querying queryCar on channel mychannel
-    Apr 20, 2018 5:13:39 PM org.app.chaincode.invocation.QueryChaincode main
-    INFO: <b>{"make":"Chevy","model":"Volt","colour":"Red","owner":"Nick"}</b>
-   </pre>
+   ```
+   Dec 07, 2018 10:20:41 AM main.java.org.app.util.Util deleteDirectory
+INFO: Deleting - admin.ser
+Dec 07, 2018 10:20:41 AM main.java.org.app.util.Util deleteDirectory
+INFO: Deleting - org1
+Dec 07, 2018 10:20:41 AM main.java.org.app.util.Util deleteDirectory
+INFO: Deleting - users
+log4j:WARN No appenders could be found for logger (org.hyperledger.fabric.sdk.helper.Config).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Dec 07, 2018 10:20:41 AM main.java.org.app.client.CAClient enrollAdminUser
+INFO: CA -http://localhost:7054 Enrolled Admin.
+Dec 07, 2018 10:20:42 AM main.java.org.app.chaincode.invocation.QueryChaincode main
+INFO: msgBean:main.java.org.app.entity.Message@31920ade
+Dec 07, 2018 10:20:42 AM main.java.org.app.chaincode.invocation.QueryChaincode main
+INFO: arguments:[Ljava.lang.String;@604f2bd2
+Dec 07, 2018 10:20:42 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: Sending transaction proposal on channel mychannel
+Dec 07, 2018 10:20:42 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: Transaction proposal on channel mychannel OK SUCCESS with transaction id:c301ed2605b80ae770c3d4ded3b0fabf5f01cd518c23e9cb86b6e2c8542e09fb
+Dec 07, 2018 10:20:42 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: {"tranCode":"SelectRuleHistory","tranDate":"","retCode":"00","data":[{"content":"{\"ruleId\":\"RULE01\",\"ruleName\":\"testruleRULE01\",\"ruleDetail\":\" This is a test rule.\",\"ruleDate\":20180508,\"dataType\":\"rule\"}","dataType":"Rule"}],"error":null}
+Dec 07, 2018 10:20:42 AM main.java.org.app.client.ChannelClient sendTransactionProposal
+INFO: java.util.concurrent.CompletableFuture@3569fc08[Not completed]
+Dec 07, 2018 10:20:42 AM main.java.org.app.chaincode.invocation.QueryChaincode main
+INFO: Query Rule History PSB_Custody. Status - SUCCESS
+
+   ```

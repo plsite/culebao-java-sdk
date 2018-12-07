@@ -14,7 +14,12 @@ package main.java.org.app.chaincode.invocation;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,13 +27,21 @@ import main.java.org.app.client.CAClient;
 import main.java.org.app.client.ChannelClient;
 import main.java.org.app.client.FabricClient;
 import main.java.org.app.config.Config;
+import main.java.org.app.culebao.entity.Rule;
+import main.java.org.app.entity.Data;
+import main.java.org.app.entity.Message;
 import main.java.org.app.user.UserContext;
+import main.java.org.app.util.JacksonUtil;
 import main.java.org.app.util.Util;
+
+import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.EventHub;
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
 import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.TransactionProposalRequest;
+import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
 
 /**
  * 
@@ -40,6 +53,8 @@ public class QueryChaincode {
 
 	private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
 	private static final String EXPECTED_EVENT_NAME = "event";
+	private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
 	public static void main(String args[]) {
 		try {
@@ -66,22 +81,59 @@ public class QueryChaincode {
 			channel.addOrderer(orderer);
 			channel.initialize();
 
-			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for all cars ...");
-			Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "queryAllCars", null);
-			for (ProposalResponse pres : responsesQuery) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}
-
-			Thread.sleep(10000);
-			String[] args1 = {"CAR1"};
-			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying for a car - " + args1[0]);
+//			String[] args1 = {"RULE01"};
+//			
+//			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying RULE01 - " + args1[0]);
+//			
+//			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("PSB_Custody", "Query", args1);
+//			for (ProposalResponse pres : responses1Query) {
+//				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
+//				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+//			}		
 			
-			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("fabcar", "queryCar", args1);
-			for (ProposalResponse pres : responses1Query) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}		
+			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
+			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
+			request.setChaincodeID(ccid);
+			request.setFcn("Query");
+//			String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
+			/*
+			 * CreateRule
+			 */
+			String ruleId = "RULE01";
+			Data ruleData = new Data();
+			ruleData.setDataType("ruleId");
+			ruleData.setContent(ruleId);
+			
+			Message msgBean = new Message();
+			msgBean.setChannel("mychannel");
+			msgBean.setTranCode("SelectRuleHistory");
+			msgBean.setTranDate(sdf.format(new Date()));
+			msgBean.setData(new Data[] {ruleData});
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"msgBean:"+msgBean.toString());
+			
+			String argumentJson = JacksonUtil.toJSON(msgBean);
+			String[] arguments = new String[] {argumentJson};
+			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());
+
+			
+			
+			request.setArgs(arguments);
+			request.setProposalWaitTime(1000);
+
+			Map<String, byte[]> tm2 = new HashMap<>();
+			tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8)); 																								
+			tm2.put("method", "TransactionProposalRequest".getBytes(UTF_8)); 
+			tm2.put("result", ":)".getBytes(UTF_8));
+			tm2.put(EXPECTED_EVENT_NAME, EXPECTED_EVENT_DATA); 
+			request.setTransientMap(tm2);
+			Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
+			for (ProposalResponse res: responses) {
+				Status status = res.getStatus();
+				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Query Rule History "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+			}
+			
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

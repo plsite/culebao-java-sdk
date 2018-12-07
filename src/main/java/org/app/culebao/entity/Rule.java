@@ -1,42 +1,42 @@
 package main.java.org.app.culebao.entity;
 
 public class Rule {
-	private String RuleId;
-	private String RuleName;
-	private String RuleDetail;
-	private int RuleDate;
-	private String DataType;
-	
+	private String ruleId;
+	private String ruleName;
+	private String ruleDetail;
+	private int ruleDate;
+	private String dataType;
 	public String getRuleId() {
-		return RuleId;
+		return ruleId;
 	}
 	public void setRuleId(String ruleId) {
-		RuleId = ruleId;
+		this.ruleId = ruleId;
 	}
 	public String getRuleName() {
-		return RuleName;
+		return ruleName;
 	}
 	public void setRuleName(String ruleName) {
-		RuleName = ruleName;
+		this.ruleName = ruleName;
 	}
 	public String getRuleDetail() {
-		return RuleDetail;
+		return ruleDetail;
 	}
 	public void setRuleDetail(String ruleDetail) {
-		RuleDetail = ruleDetail;
+		this.ruleDetail = ruleDetail;
 	}
 	public int getRuleDate() {
-		return RuleDate;
+		return ruleDate;
 	}
 	public void setRuleDate(int ruleDate) {
-		RuleDate = ruleDate;
+		this.ruleDate = ruleDate;
 	}
 	public String getDataType() {
-		return DataType;
+		return dataType;
 	}
 	public void setDataType(String dataType) {
-		DataType = dataType;
+		this.dataType = dataType;
 	}
+	
 	
 	
 
