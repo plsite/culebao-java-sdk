@@ -54,9 +54,12 @@ public class QueryChaincode {
 	private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
 	private static final String EXPECTED_EVENT_NAME = "event";
 	private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
+	
 	public static void main(String args[]) {
+		selectRule();
+	}
+
+	public static void selectRule() {
 		try {
             Util.cleanUp();
 			String caUrl = Config.CA_ORG1_URL;
@@ -80,26 +83,14 @@ public class QueryChaincode {
 			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
-
-//			String[] args1 = {"RULE01"};
-//			
-//			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Querying RULE01 - " + args1[0]);
-//			
-//			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("PSB_Custody", "Query", args1);
-//			for (ProposalResponse pres : responses1Query) {
-//				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-//				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-//			}		
 			
+
 			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
 			request.setChaincodeID(ccid);
 			request.setFcn("Query");
-//			String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
-			/*
-			 * CreateRule
-			 */
-			String ruleId = "RULE01";
+			
+			String ruleId = "RULE03";
 			Data ruleData = new Data();
 			ruleData.setDataType("ruleId");
 			ruleData.setContent(ruleId);
