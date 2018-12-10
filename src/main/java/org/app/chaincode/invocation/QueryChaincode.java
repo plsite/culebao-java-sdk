@@ -56,10 +56,13 @@ public class QueryChaincode {
 	private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public static void main(String args[]) {
+//		QueryChaincode qc = new QueryChaincode();
+//		qc.selectHistoryOfActivity();
 //		selectHistoryOfActivity();
 //		selectHistoryOfTransfer();
 //		selectScorePoints();
-		selectRuleHistory();
+//		QueryChaincode qc = new QueryChaincode();
+//		qc.selectRuleHistory();
 	}
 	
 	public static void selectHistoryOfActivity() {
@@ -86,7 +89,6 @@ public class QueryChaincode {
 			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
-			
 
 			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
@@ -116,8 +118,6 @@ public class QueryChaincode {
 			String argumentJson = JacksonUtil.toJSON(msgBean);
 			String[] arguments = new String[] {argumentJson};
 			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());
-
-			
 			
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
@@ -163,7 +163,6 @@ public class QueryChaincode {
 			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
-			
 
 			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
@@ -172,7 +171,7 @@ public class QueryChaincode {
 			
 			Data scoreOwner = new Data();
 			scoreOwner.setDataType("scoreOwner");
-			scoreOwner.setContent("");
+			scoreOwner.setContent("USER01");
 			Data startTime = new Data();
 			startTime.setDataType("startTime");
 			startTime.setContent("");
@@ -184,9 +183,7 @@ public class QueryChaincode {
 			activityId.setContent("");
 			Data transactionType = new Data();
 			transactionType.setDataType("transactionType");
-			transactionType.setContent("");
-			
-			
+			transactionType.setContent("debit");
 			
 			Message msgBean = new Message();
 			msgBean.setChannel("mychannel");
@@ -198,8 +195,6 @@ public class QueryChaincode {
 			String argumentJson = JacksonUtil.toJSON(msgBean);
 			String[] arguments = new String[] {argumentJson};
 			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());
-
-			
 			
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
@@ -215,9 +210,6 @@ public class QueryChaincode {
 				Status status = res.getStatus();
 				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Query Transaction "+Config.CHAINCODE_1_NAME + ". Status - " + status);
 			}
-			
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -248,7 +240,6 @@ public class QueryChaincode {
 			channel.addEventHub(eventHub);
 			channel.addOrderer(orderer);
 			channel.initialize();
-			
 
 			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
@@ -258,8 +249,6 @@ public class QueryChaincode {
 			Data userId = new Data();
 			userId.setDataType("userId");
 			userId.setContent("USER01");
-			
-			
 			
 			Message msgBean = new Message();
 			msgBean.setChannel("mychannel");
@@ -271,8 +260,6 @@ public class QueryChaincode {
 			String argumentJson = JacksonUtil.toJSON(msgBean);
 			String[] arguments = new String[] {argumentJson};
 			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());
-
-			
 			
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
@@ -288,9 +275,6 @@ public class QueryChaincode {
 				Status status = res.getStatus();
 				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Query User Points "+Config.CHAINCODE_1_NAME + ". Status - " + status);
 			}
-			
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -322,7 +306,6 @@ public class QueryChaincode {
 			channel.addOrderer(orderer);
 			channel.initialize();
 			
-
 			TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
 			ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
 			request.setChaincodeID(ccid);
@@ -341,7 +324,6 @@ public class QueryChaincode {
 			endTime.setDataType("endTime");
 			endTime.setContent("");
 			
-			
 			Message msgBean = new Message();
 			msgBean.setChannel("mychannel");
 			msgBean.setTranCode("SelectRuleHistory");
@@ -353,8 +335,6 @@ public class QueryChaincode {
 			String argumentJson = JacksonUtil.toJSON(msgBean);
 			String[] arguments = new String[] {argumentJson};
 			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());
-
-			
 			
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
@@ -370,9 +350,6 @@ public class QueryChaincode {
 				Status status = res.getStatus();
 				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Query Rule History "+Config.CHAINCODE_1_NAME + ". Status - " + status);
 			}
-			
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
