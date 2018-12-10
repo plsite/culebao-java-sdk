@@ -207,7 +207,7 @@ INFO: Invoked createCar on PSB_Custody. Status - SUCCESS
   ```   
 
    ```
-   java -cp blockchain-client.jar org.app.chaincode.invocation.QueryChaincode
+   java -cp blockchain-client.jar main.java.org.app.chaincode.invocation.QueryChaincode
    ```
    
    Output:
