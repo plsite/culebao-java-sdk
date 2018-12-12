@@ -56,13 +56,13 @@ public class QueryChaincode {
 	private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public static void main(String args[]) {
-//		QueryChaincode qc = new QueryChaincode();
+		QueryChaincode qc = new QueryChaincode();
 //		qc.selectHistoryOfActivity();
 //		selectHistoryOfActivity();
 //		selectHistoryOfTransfer();
 //		selectScorePoints();
-//		QueryChaincode qc = new QueryChaincode();
-//		qc.selectRuleHistory();
+		qc.selectRuleHistory();
+		
 	}
 	
 	public static void selectHistoryOfActivity() {
@@ -281,7 +281,7 @@ public class QueryChaincode {
 		}
 	}
 	
-	public static void selectRuleHistory() {
+	public void selectRuleHistory() {
 		try {
             Util.cleanUp();
 			String caUrl = Config.CA_ORG1_URL;
@@ -337,7 +337,7 @@ public class QueryChaincode {
 			Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"arguments:"+arguments.toString());
 			
 			request.setArgs(arguments);
-			request.setProposalWaitTime(1000);
+			request.setProposalWaitTime(10000000);
 
 			Map<String, byte[]> tm2 = new HashMap<>();
 			tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8)); 																								
