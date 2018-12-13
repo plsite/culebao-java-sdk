@@ -65,7 +65,7 @@ public class QueryChaincode {
 		
 	}
 	
-	public static void selectHistoryOfActivity() {
+	public void selectHistoryOfActivity() {
 		try {
             Util.cleanUp();
 			String caUrl = Config.CA_ORG1_URL;
@@ -139,7 +139,7 @@ public class QueryChaincode {
 		}
 	}
 	
-	public static void selectHistoryOfTransfer() {
+	public void selectHistoryOfTransfer() {
 		try {
             Util.cleanUp();
 			String caUrl = Config.CA_ORG1_URL;
@@ -216,7 +216,7 @@ public class QueryChaincode {
 		}
 	}
 
-	public static void selectScorePoints() {
+	public void selectScorePoints() {
 		try {
             Util.cleanUp();
 			String caUrl = Config.CA_ORG1_URL;
@@ -313,7 +313,7 @@ public class QueryChaincode {
 			
 			Data ruleId = new Data();
 			ruleId.setDataType("ruleId");
-			ruleId.setContent("RULE03");
+			ruleId.setContent("RULE01");
 			Data ruleName = new Data();
 			ruleName.setDataType("ruleName");
 			ruleName.setContent("");
