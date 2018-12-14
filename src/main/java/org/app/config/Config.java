@@ -14,7 +14,6 @@ public class Config {
 
 	public static final String ADMIN = "admin";
 
-	
 	public static final String ADMIN_PASSWORD = "adminpw";
 	
 	public static final String CHANNEL_CONFIG_PATH = "config/channel.tx";
